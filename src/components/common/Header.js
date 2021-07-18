@@ -14,8 +14,12 @@ const StyledHeaderWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
-    width: 1280px;
+    width: 100%;
+    max-width: 1280px;
     height: 100%;
+    & > img {
+      margin-left: 10px;
+    }
   }
 `;
 const StyledBurger = styled.button`

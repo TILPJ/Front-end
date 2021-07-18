@@ -2,58 +2,27 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { string } from 'prop-types';
-import { StyledTitle, StyledContent, StyledButton } from './auth.styles';
+import {
+  StyledTitle,
+  StyledContent,
+  StyledInput,
+  StyledButton,
+} from './auth.styles';
 import { login } from '../../../modules/auth/user';
 import Verified from '../../../assets/common/drawer_email-check.svg';
 
 const LoginTitle = styled(StyledTitle)``;
-const LoginContent = styled(StyledContent)``;
+const LoginContent = styled(StyledContent)`
+  & > .loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
 const LoginButton = styled(StyledButton)`
   margin-top: 33px;
 `;
-const StyledInput = styled.div`
-  position: relative;
-  margin-bottom: 15.2px;
-  width: 340px;
-  overflow: hidden;
-  & > label {
-    display: block;
-    font-weight: 300;
-    font-size: 14px;
-    color: #20160f;
-  }
-  & > input {
-    padding-left: 15px;
-    width: 100%;
-    height: 36.5px;
-    border: 0;
-    border-bottom: 0.5px solid #333;
-    font-weight: 300;
-    font-size: 16px;
-    color: #333;
-    outline: none;
-    &::placeholder {
-      /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: #c9c9c9;
-      opacity: 1; /* Firefox */
-    }
-
-    &:-ms-input-placeholder {
-      /* Internet Explorer 10-11 */
-      color: #c9c9c9;
-    }
-
-    &::-ms-input-placeholder {
-      /* Microsoft Edge */
-      color: #c9c9c9;
-    }
-  }
-  & > .verified {
-    position: absolute;
-    bottom: 14px;
-    right: 5px;
-  }
-`;
+const LoginInput = styled(StyledInput)``;
 const Login = ({ email }) => {
   const dispatch = useDispatch();
   const [password, setPassword] = useState('');
@@ -80,12 +49,12 @@ const Login = ({ email }) => {
       </LoginTitle>
       <LoginContent>
         <form className="loginForm" onSubmit={handleLogin}>
-          <StyledInput>
+          <LoginInput>
             <label htmlFor="email">아이디</label>
             <input readOnly type="email" id="email" value={email} />
             <img className="verified" src={Verified} alt="verified" />
-          </StyledInput>
-          <StyledInput>
+          </LoginInput>
+          <LoginInput>
             <label htmlFor="password">비밀번호</label>
             <input
               type="password"
@@ -94,7 +63,7 @@ const Login = ({ email }) => {
               value={password}
               onInput={handlePasswordInput}
             />
-          </StyledInput>
+          </LoginInput>
           <LoginButton disabled={disabled} type="submit">
             로그인
           </LoginButton>

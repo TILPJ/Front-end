@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { string } from 'prop-types';
 import { register } from '../../../modules/auth/user';
-import { StyledTitle, StyledContent, StyledButton } from './auth.styles';
+import {
+  StyledTitle,
+  StyledContent,
+  StyledInput,
+  StyledButton,
+} from './auth.styles';
 import Verified from '../../../assets/common/drawer_email-check.svg';
 import {
   passwordRegex,
@@ -20,58 +25,8 @@ const RegisterContent = styled(StyledContent)`
     width: 340px;
   }
 `;
-const RegisterButton = styled(StyledButton)`
-  margin-top: 33px;
-`;
-const StyledInput = styled.div`
-  position: relative;
-  margin-bottom: 15.2px;
-  width: 340px;
-  overflow: hidden;
-  & > label {
-    display: block;
-    font-weight: 300;
-    font-size: 14px;
-    color: #20160f;
-  }
-  & > input {
-    padding-left: 15px;
-    width: 100%;
-    height: 36.5px;
-    border: 0;
-    border-bottom: 0.5px solid #333;
-    font-weight: 300;
-    font-size: 16px;
-    color: #333;
-    outline: none;
-    ${props =>
-      props.disabled &&
-      css`
-        background: #dfdfdf;
-        cursor: default;
-      `}
-    &::placeholder {
-      /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: #c9c9c9;
-      opacity: 1; /* Firefox */
-    }
-
-    &:-ms-input-placeholder {
-      /* Internet Explorer 10-11 */
-      color: #c9c9c9;
-    }
-
-    &::-ms-input-placeholder {
-      /* Microsoft Edge */
-      color: #c9c9c9;
-    }
-  }
-  & > .verified {
-    position: absolute;
-    bottom: 14px;
-    right: 5px;
-  }
-`;
+const RegisterButton = styled(StyledButton)``;
+const RegisterInput = styled(StyledInput)``;
 const StyledTerms = styled.div`
   display: flex;
   flex-direction: column;
@@ -181,12 +136,12 @@ const Register = ({ email }) => {
       </RegisterTitle>
       <RegisterContent>
         <form className="registerForm" onSubmit={handleRegisterSubmit}>
-          <StyledInput>
+          <RegisterInput>
             <label htmlFor="email">아이디</label>
             <input readOnly type="email" id="email" value={email} />
             <img className="verified" src={Verified} alt="verified" />
-          </StyledInput>
-          <StyledInput>
+          </RegisterInput>
+          <RegisterInput>
             <label htmlFor="password1">비밀번호</label>
             <input
               type="password"
@@ -198,8 +153,8 @@ const Register = ({ email }) => {
             {firstPasswordVerified ? (
               <img className="verified" src={Verified} alt="verified" />
             ) : null}
-          </StyledInput>
-          <StyledInput>
+          </RegisterInput>
+          <RegisterInput>
             <label htmlFor="password2">비밀번호 확인</label>
             <input
               disabled={!firstPasswordVerified}
@@ -211,21 +166,21 @@ const Register = ({ email }) => {
             {secondPasswordVerified ? (
               <img className="verified" src={Verified} alt="verified" />
             ) : null}
-          </StyledInput>
-          <StyledInput>
+          </RegisterInput>
+          <RegisterInput>
             <label htmlFor="phoneNumer">휴대폰번호</label>
             <input
               type="text"
               id="phoneNumer"
-              placeholder="휴대폰 번호 ('-'제외) "
+              placeholder="휴대폰 번호 ('-'제외)"
               value={phoneNumber}
               onInput={handlePhoneNumberInput}
             />
             {phoneNumberVerified ? (
               <img className="verified" src={Verified} alt="verified" />
             ) : null}
-          </StyledInput>
-          <StyledInput>
+          </RegisterInput>
+          <RegisterInput>
             <label htmlFor="birtdate">생년월일</label>
             <input
               type="text"
@@ -237,7 +192,7 @@ const Register = ({ email }) => {
             {birthDateVerified ? (
               <img className="verified" src={Verified} alt="verified" />
             ) : null}
-          </StyledInput>
+          </RegisterInput>
           <StyledTerms>
             <p>
               <a href="/">이용약관</a>, <a href="/">개인정보수집 및 이용</a>,

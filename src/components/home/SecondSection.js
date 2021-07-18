@@ -1,41 +1,30 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import TILExample from '../../assets/home/second-section_til-example.svg';
 import AddButton from '../../assets/home/second-section_add-button.svg';
 import Asset from '../../assets/home/second-section_asset.svg';
 
-const StyledSection = styled.div`
+const StyledSecondSection = styled.div`
   position: relative;
   width: 100%;
   height: 1044px;
+  min-width: 1910px;
   background: #fafafa;
+  overflow: hidden;
 `;
 
-const copyStyle = css`
-  position: relative;
-  z-index: 1;
-  font-size: 50px;
-  font-family: 'Apple SD Gothic Neo';
-`;
 const StyledCopy = styled.div`
   position: absolute;
-  top: 37%;
+  top: 40%;
   left: 20%;
-  .upper {
-    ${copyStyle}
+  color: #20160f;
+  & > p {
+    font-size: 50px;
+    font-family: 'Apple SD Gothic Neo';
     font-weight: 500;
     margin-bottom: 15px;
-  }
-  .under {
-    ${copyStyle}
-    font-weight: 700;
-  }
-  .underline {
-    position: absolute;
-    bottom: 8px;
-    left: -2px;
-    width: 275px;
-    height: 8px;
-    background-color: #f1928b;
+    & > .stress {
+      font-weight: 700;
+    }
   }
 `;
 const StyledTILExample = styled.img`
@@ -56,16 +45,17 @@ const StyledAsset = styled.img`
 
 const SecondSection = () => {
   return (
-    <StyledSection>
+    <StyledSecondSection>
       <StyledCopy>
-        <div className="upper">당신의 TIL을</div>
-        <div className="under">간편하게 등록하세요</div>
-        <div className="underline" />
+        <p>당신의 TIL을</p>
+        <p>
+          <span className="stress">간편하게 등록</span>하세요
+        </p>
       </StyledCopy>
       <StyledTILExample src={TILExample} />
       <StyledAddButton src={AddButton} />
       <StyledAsset src={Asset} />
-    </StyledSection>
+    </StyledSecondSection>
   );
 };
 export default SecondSection;

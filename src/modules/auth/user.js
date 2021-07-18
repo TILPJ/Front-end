@@ -8,6 +8,9 @@ const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] =
   createRequestActionTypes('user/REGISTER');
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] =
   createRequestActionTypes('user/LOGIN');
+const [CHANGE_PASSWORD, CHANGE_PASSWORD_SUCCESS, CHANGE_PASSWORD_FAILURE] =
+  createRequestActionTypes('user/CHANGE_PASSWORD');
+const INIT_IS_PASSWORD_CHANGED = 'user/INIT_IS_PASSWORD_CHANGED';
 
 export const register = (
   email,
@@ -32,6 +35,17 @@ export const login = (email, password) => ({
     password,
   },
 });
+export const changePassword = (email, firstPassword, secondPassword) => ({
+  type: CHANGE_PASSWORD,
+  payload: {
+    email,
+    firstPassword,
+    secondPassword,
+  },
+});
+export const initIsPasswordChanged = () => ({
+  type: INIT_IS_PASSWORD_CHANGED,
+});
 
 const registerSaga = createRequestSaga(
   REGISTER,
@@ -51,14 +65,20 @@ const loginSaga = createRequestSaga(
     }
   }
 );
+const changePasswordSaga = createRequestSaga(
+  CHANGE_PASSWORD,
+  authAPI.changePassword
+);
 export function* userSagas() {
   yield takeLatest(REGISTER, registerSaga);
   yield takeLatest(LOGIN, loginSaga);
+  yield takeLatest(CHANGE_PASSWORD, changePasswordSaga);
 }
 
 const initialState = {
   status: '',
   token: '',
+  isPasswordChanged: false,
   error: '',
 };
 
@@ -87,6 +107,21 @@ const user = (state = initialState, action) => {
         ...state,
         status: action.payload.status,
         error: action.payload.data,
+      };
+    case CHANGE_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        isPasswordChanged: true,
+      };
+    case CHANGE_PASSWORD_FAILURE:
+      return {
+        ...state,
+        isPasswordChanged: false,
+      };
+    case INIT_IS_PASSWORD_CHANGED:
+      return {
+        ...state,
+        isPasswordChanged: false,
       };
     default:
       return state;

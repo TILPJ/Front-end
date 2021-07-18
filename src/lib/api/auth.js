@@ -24,3 +24,16 @@ export const login = ({ email, password }) => {
     password,
   });
 };
+export const findEmail = ({ phoneNumber, birthDate }) => {
+  return client.post('/v1.0/accounts/api/email/find/', {
+    phone_number: phoneNumber,
+    date_of_birth: birthDate,
+  });
+};
+export const changePassword = ({ email, firstPassword, secondPassword }) => {
+  return client.post('/v1.0/accounts/api/password/change/', {
+    user_email: email,
+    new_password1: firstPassword,
+    new_password2: secondPassword,
+  });
+};

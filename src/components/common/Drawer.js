@@ -9,7 +9,7 @@ import FindEmail from '../home/auth/FindEmail';
 import NoUserInfo from '../home/auth/NoUserInfo';
 import NewPassword from '../home/auth/NewPassword';
 import Register from '../home/auth/Register';
-import { checkEmail } from '../../modules/auth/check';
+import { checkEmail, initUserEmail } from '../../modules/auth/check';
 import { switchToAuthEntry } from '../../modules/auth/process';
 import { closeDrawer } from '../../modules/drawer';
 
@@ -38,10 +38,12 @@ const Drawer = () => {
   );
   const [email, setEmail] = useState('');
 
-  if (userToken) {
-    dispatch(closeDrawer());
-    history.push('/lectures');
-  }
+  useEffect(() => {
+    if (userToken) {
+      dispatch(closeDrawer());
+      history.push('/lectures');
+    }
+  }, [userToken]);
 
   const handleEmailCheck = e => {
     e.preventDefault();
@@ -50,6 +52,8 @@ const Drawer = () => {
 
   useEffect(() => {
     if (!isDrawerOpen) {
+      // [이메일 찾기] 이메일 초기화. 적절한 위치는 아닌 것 같음
+      dispatch(initUserEmail());
       dispatch(switchToAuthEntry());
     }
   }, [isDrawerOpen]);

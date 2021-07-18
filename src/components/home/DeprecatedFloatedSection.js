@@ -1,6 +1,4 @@
 import styled, { css } from 'styled-components';
-import BackgroundImg from '../../assets/home/floated-top-section.svg';
-import Pinwheel from '../../assets/home/floated-top-section_pinwheel.svg';
 
 const StyledFloatedSection = styled.div`
   position: absolute;
@@ -10,7 +8,7 @@ const StyledFloatedSection = styled.div`
   width: 1340px;
   height: 600px;
   border-radius: 40px;
-  background-image: url(${BackgroundImg});
+  /* background-image: url(${BackgroundImg}); */
   background-size: 100%;
   transform: translateX(-50%);
 `;
@@ -98,7 +96,7 @@ const FloatedSection = () => {
         <div className="underline" />
       </StyledCopy>
       <StyledBeginButton>시작하기</StyledBeginButton>
-      <StyledPinwheel src={Pinwheel} />
+      {/* <StyledPinwheel src={Pinwheel} /> */}
       <StyledCardExample>
         <div className="behind" />
         <div className="middle">예시 콘텐츠</div>
