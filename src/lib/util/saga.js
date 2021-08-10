@@ -12,6 +12,7 @@ export default function createRequestSaga(
   // eslint-disable-next-line no-unused-vars
   sideEffectFn = (actionType, response) => {}
 ) {
+  console.log('여기 들어왔나?');
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
 

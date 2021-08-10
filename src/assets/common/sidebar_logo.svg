@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="206" height="61" viewBox="0 0 206 61">
+  <g id="그룹_3784" data-name="그룹 3784" transform="translate(-40 -28)">
+    <rect id="사각형_2290" data-name="사각형 2290" width="206" height="61" rx="12" transform="translate(40 28)" fill="#fff"/>
+    <g id="그룹_3679" data-name="그룹 3679" transform="translate(92.445 39.602)">
+      <rect id="사각형_2243" data-name="사각형 2243" width="34" height="5" rx="2.5" transform="translate(27.555 0.398) rotate(90)" fill="#ff8d8d"/>
+      <g id="그룹_3676" data-name="그룹 3676" transform="translate(81.471 0)">
+        <rect id="사각형_2249" data-name="사각형 2249" width="34" height="5" rx="2.5" transform="translate(5.083 0.398) rotate(90)" fill="#ff8d8d"/>
+        <rect id="사각형_2252" data-name="사각형 2252" width="16" height="6" rx="3" transform="translate(19.083 0.398) rotate(90)" fill="#ff8d8d"/>
+        <rect id="사각형_2250" data-name="사각형 2250" width="19" height="5" rx="2.5" transform="translate(0.083 0.398)" fill="#ff8d8d" opacity="0.6"/>
+        <rect id="사각형_2251" data-name="사각형 2251" width="19" height="5" rx="2.5" transform="translate(0.083 11.398)" fill="#ff8d8d" opacity="0.6"/>
+      </g>
+      <g id="그룹_3674" data-name="그룹 3674" transform="translate(31.077 0)">
+        <rect id="사각형_2244" data-name="사각형 2244" width="34" height="5" rx="2.5" transform="translate(5.478 0.398) rotate(90)" fill="#ff8d8d"/>
+        <rect id="사각형_2245" data-name="사각형 2245" width="23" height="5" rx="2.5" transform="translate(23.478 34.398) rotate(180)" fill="#ff8d8d" opacity="0.6"/>
+      </g>
+      <g id="그룹_3675" data-name="그룹 3675" transform="translate(57.954 0)">
+        <rect id="사각형_2247" data-name="사각형 2247" width="34" height="5" rx="2.5" transform="translate(20.601 0.398) rotate(90)" fill="#ff8d8d" opacity="0.6"/>
+        <rect id="사각형_2246" data-name="사각형 2246" width="34" height="5" rx="2.5" transform="translate(4.601 0.398) rotate(90)" fill="#ff8d8d"/>
+        <rect id="사각형_2248" data-name="사각형 2248" width="21" height="5" rx="2.5" transform="translate(20.601 34.398) rotate(180)" fill="#ff8d8d"/>
+      </g>
+      <g id="그룹_3678" data-name="그룹 3678" transform="translate(0 0)">
+        <rect id="사각형_2253" data-name="사각형 2253" width="20" height="5" rx="2.5" transform="translate(-0.445 0.398)" fill="#ff8d8d" opacity="0.6"/>
+        <rect id="사각형_2242" data-name="사각형 2242" width="34" height="5" rx="2.5" transform="translate(11.555 0.398) rotate(90)" fill="#ff8d8d"/>
+      </g>
+    </g>
+  </g>
+</svg>
