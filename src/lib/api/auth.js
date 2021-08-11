@@ -37,3 +37,12 @@ export const changePassword = ({ email, firstPassword, secondPassword }) => {
     new_password2: secondPassword,
   });
 };
+export const logout = () => {
+  return client({
+    method: 'post',
+    url: '/v1.0/accounts/api/logout/',
+    headers: {
+      Authorization: `Token ${localStorage.getItem('userToken')}`,
+    },
+  });
+};

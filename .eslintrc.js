@@ -13,6 +13,19 @@ module.exports = {
     node: true,
   },
   rules: {
+    'jsx-a11y/no-noninteractive-element-interactions': [
+      'error',
+      {
+        handlers: [
+          // 'onClick',
+          'onMouseDown',
+          'onMouseUp',
+          'onKeyPress',
+          // 'onKeyDown',
+          'onKeyUp',
+        ],
+      },
+    ],
     'react/jsx-filename-extension': [
       'error',
       {

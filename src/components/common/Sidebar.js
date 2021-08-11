@@ -1,7 +1,10 @@
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import Logo from '../../assets/common/sidebar_logo.svg';
 import Logout from '../../assets/common/sidebar_logout.svg';
 import MenuTab from './MenuTab';
+import { logout } from '../../modules/auth/user';
 
 const StyledSidebarWrapper = styled.div`
   position: fixed;
@@ -26,11 +29,28 @@ const StyledSidebarWrapper = styled.div`
     & > .logout-wrapper {
       position: absolute;
       bottom: 40px;
+      & > img {
+        cursor: pointer;
+      }
     }
   }
 `;
 
 const Sidebar = () => {
+  const { token } = useSelector(({ user }) => ({
+    token: user.token,
+  }));
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
+  if (!token) {
+    localStorage.removeItem('userToken');
+    history.push('/');
+  }
+
   return (
     <StyledSidebarWrapper>
       <div className="sidebar">
@@ -42,7 +62,12 @@ const Sidebar = () => {
           <MenuTab menu="TodayILearned" />
         </div>
         <div className="logout-wrapper">
-          <img src={Logout} alt="sidebar-logout" />
+          <img
+            src={Logout}
+            alt="sidebar-logout"
+            onClick={handleLogout}
+            onKeyDown={handleLogout}
+          />
         </div>
       </div>
     </StyledSidebarWrapper>
