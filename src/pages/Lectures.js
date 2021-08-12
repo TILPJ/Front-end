@@ -2,11 +2,14 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Empty from '../components/lectures/Empty';
+import LecturesList from '../components/lectures/LecturesList';
 import { getList } from '../modules/lectures/lectures';
 
 const StyledLectures = styled.main`
-  padding: 80px 282px 0 320px;
-  height: 100vh;
+  position: relative;
+  padding: 80px 282px 100px 320px;
+  height: 100%;
+  min-height: 100vh;
   background: #f4f7fc;
 `;
 
@@ -25,6 +28,8 @@ const Lectures = () => {
   let content = '';
   if (lecturesList.length === 0) {
     content = <Empty />;
+  } else {
+    content = <LecturesList lecturesList={lecturesList} />;
   }
 
   return <StyledLectures>{content}</StyledLectures>;
