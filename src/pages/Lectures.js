@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Empty from '../components/lectures/Empty';
 import LecturesList from '../components/lectures/LecturesList';
-import { getList } from '../modules/lectures/lectures';
+import AddLecture from '../components/lectures/AddLecture';
+import { getMyList } from '../modules/lectures/lectures';
 
 const StyledLectures = styled.main`
   position: relative;
@@ -15,21 +16,30 @@ const StyledLectures = styled.main`
 
 const Lectures = () => {
   const dispatch = useDispatch();
-  const { lecturesList } = useSelector(({ lectures }) => ({
-    lecturesList: lectures.lecturesList,
+  const { myLecturesList } = useSelector(({ lectures }) => ({
+    myLecturesList: lectures.myLectures.list,
   }));
+  const [isAddLectureMonuted, setIsAddLectureMonuted] = useState(false);
+  const handleAddLectureMount = (mount = true) => {
+    setIsAddLectureMonuted(mount);
+  };
 
   useEffect(() => {
-    dispatch(getList());
+    dispatch(getMyList());
   }, []);
 
-  console.log(lecturesList);
-
   let content = '';
-  if (lecturesList.length === 0) {
-    content = <Empty />;
+  if (myLecturesList.length === 0) {
+    content = <Empty handleAddLectureMount={handleAddLectureMount} />;
+  } else if (isAddLectureMonuted) {
+    content = <AddLecture handleAddLectureMount={handleAddLectureMount} />;
   } else {
-    content = <LecturesList lecturesList={lecturesList} />;
+    content = (
+      <LecturesList
+        handleAddLectureMount={handleAddLectureMount}
+        myLecturesList={myLecturesList}
+      />
+    );
   }
 
   return <StyledLectures>{content}</StyledLectures>;

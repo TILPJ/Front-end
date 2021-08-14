@@ -24,14 +24,12 @@ const StyledLecturesList = styled.div`
 `;
 
 // eslint-disable-next-line react/prop-types
-const LecturesList = ({ lecturesList }) => {
-  const handleLectureAdd = () => {
-    console.log('clicked');
-  };
+const LecturesList = ({ handleAddLectureMount, myLecturesList }) => {
   // eslint-disable-next-line react/prop-types
-  const lectures = lecturesList.map(lecture => {
+  const lectures = myLecturesList.map(lecture => {
     return (
       <Lecture
+        key={`${lecture.id}${lecture.site_info.id}${lecture.course_info.id}`}
         site={lecture.site_info.name}
         lecture={lecture.course_info.title}
       />
@@ -44,8 +42,8 @@ const LecturesList = ({ lecturesList }) => {
         <img
           src={AddIcon}
           alt="add-icon"
-          onClick={handleLectureAdd}
-          onKeyDown={handleLectureAdd}
+          onClick={handleAddLectureMount}
+          onKeyDown={handleAddLectureMount}
         />
       </div>
     </StyledLecturesList>

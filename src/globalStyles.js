@@ -74,6 +74,8 @@ const GlobalStyles = createGlobalStyle`
     src: url('./assets/font/spoqahansans/SpoqaHanSansNeo-Bold.ttf') format('truetype'); 
     font-weight: 700; 
   } */
+  /* box-sizing: border-box; */
+
 `;
 
 export default GlobalStyles;

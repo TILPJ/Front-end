@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { func } from 'prop-types';
 import AddIcon from '../../assets/lectures/add-icon.svg';
 
 const StyledEmpty = styled.div`
@@ -23,10 +24,7 @@ const StyledEmpty = styled.div`
   }
 `;
 
-const Empty = () => {
-  const handleLectureAdd = () => {
-    console.log('clicked');
-  };
+const Empty = ({ handleAddLectureMount }) => {
   return (
     <StyledEmpty>
       <div className="words">
@@ -37,12 +35,16 @@ const Empty = () => {
         <img
           src={AddIcon}
           alt="add-icon"
-          onClick={handleLectureAdd}
-          onKeyDown={handleLectureAdd}
+          onClick={handleAddLectureMount}
+          onKeyDown={handleAddLectureMount}
         />
       </div>
     </StyledEmpty>
   );
+};
+
+Empty.propTypes = {
+  handleAddLectureMount: func.isRequired,
 };
 
 export default Empty;
