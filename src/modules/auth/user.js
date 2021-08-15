@@ -13,6 +13,7 @@ const [CHANGE_PASSWORD, CHANGE_PASSWORD_SUCCESS, CHANGE_PASSWORD_FAILURE] =
 const INIT_IS_PASSWORD_CHANGED = 'user/INIT_IS_PASSWORD_CHANGED';
 const [LOGOUT, LOGOUT_SUCCESS, LOGOUT_FAILURE] =
   createRequestActionTypes('user/LOGOUT');
+const MAINTAINLOGIN = 'user/MAINTAINLOGIN';
 
 export const register = (
   email,
@@ -50,6 +51,12 @@ export const initIsPasswordChanged = () => ({
 });
 export const logout = () => ({
   type: LOGOUT,
+});
+export const maintainLogin = userToken => ({
+  type: MAINTAINLOGIN,
+  payload: {
+    userToken,
+  },
 });
 
 const registerSaga = createRequestSaga(
@@ -142,6 +149,11 @@ const user = (state = initialState, action) => {
         ...state,
         status: action.payload.status,
         error: action.payload.data,
+      };
+    case MAINTAINLOGIN:
+      return {
+        ...state,
+        token: action.payload.userToken,
       };
     default:
       return state;

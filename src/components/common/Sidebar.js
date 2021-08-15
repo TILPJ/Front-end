@@ -1,10 +1,10 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { func, string } from 'prop-types';
+import { Redirect } from 'react-router';
+
 import styled from 'styled-components';
 import Logo from '../../assets/common/sidebar_logo.svg';
 import Logout from '../../assets/common/sidebar_logout.svg';
 import MenuTab from './MenuTab';
-import { logout } from '../../modules/auth/user';
 
 const StyledSidebarWrapper = styled.div`
   position: fixed;
@@ -37,21 +37,10 @@ const StyledSidebarWrapper = styled.div`
   }
 `;
 
-const Sidebar = () => {
-  const { token } = useSelector(({ user }) => ({
-    token: user.token,
-  }));
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const handleLogout = () => {
-    dispatch(logout());
-  };
-
-  if (!token) {
-    localStorage.removeItem('userToken');
-    history.push('/');
+const Sidebar = ({ userToken, savedToken, handleLogout }) => {
+  if (!userToken && !savedToken) {
+    return <Redirect to="/" />;
   }
-
   return (
     <StyledSidebarWrapper>
       <div className="sidebar">
@@ -73,6 +62,16 @@ const Sidebar = () => {
       </div>
     </StyledSidebarWrapper>
   );
+};
+
+Sidebar.propTypes = {
+  userToken: string,
+  savedToken: string,
+  handleLogout: func.isRequired,
+};
+Sidebar.defaultProps = {
+  userToken: '',
+  savedToken: '',
 };
 
 export default Sidebar;

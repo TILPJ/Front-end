@@ -37,3 +37,13 @@ export const registerMyNewLecture = ({ siteId, lectureId }) => {
     },
   });
 };
+
+export const deleteLecture = ({ myLectureId }) => {
+  return client({
+    method: 'delete',
+    url: `/v1.0/mycourses/${myLectureId}`,
+    headers: {
+      Authorization: `Token ${localStorage.getItem('userToken')}`,
+    },
+  });
+};

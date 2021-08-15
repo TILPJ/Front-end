@@ -15,6 +15,8 @@ const [
   REGISTERMYNEWLECTURE_SUCCESS,
   REGISTERMYNEWLECTURE_FAILURE,
 ] = createRequestActionTypes('lectures/GETLECTURESLIST');
+const [DELETELECTURE, DELETELECTURE_SUCCESS, DELETELECTURE_FAILURE] =
+  createRequestActionTypes('lectures/DELETELECTURE');
 
 export const getMyList = () => {
   return {
@@ -43,6 +45,14 @@ export const registerMyNewLecture = (siteId, lectureId) => {
     },
   };
 };
+export const deleteLecture = myLectureId => {
+  return {
+    type: DELETELECTURE,
+    payload: {
+      myLectureId,
+    },
+  };
+};
 
 const getMyListSaga = createRequestSaga(GETMYLIST, lecturesAPI.getMyList);
 const getSitesListSaga = createRequestSaga(
@@ -57,12 +67,17 @@ const registerMyNewLectureSaga = createRequestSaga(
   REGISTERMYNEWLECTURE,
   lecturesAPI.registerMyNewLecture
 );
+const deleteLectureSaga = createRequestSaga(
+  DELETELECTURE,
+  lecturesAPI.deleteLecture
+);
 
 export function* lecturesSagas() {
   yield takeLatest(GETMYLIST, getMyListSaga);
   yield takeLatest(GETSITESLIST, getSitesListSaga);
   yield takeLatest(GETLECTURESLIST, getLecturesListSaga);
   yield takeLatest(REGISTERMYNEWLECTURE, registerMyNewLectureSaga);
+  yield takeLatest(DELETELECTURE, deleteLectureSaga);
 }
 
 const initialState = {
@@ -84,6 +99,11 @@ const initialState = {
   register: {
     status: null,
     message: null,
+  },
+  delete: {
+    status: null,
+    message: null,
+    error: null,
   },
 };
 
@@ -153,6 +173,22 @@ const lectures = (state = initialState, action) => {
         register: {
           status: action.payload.status,
           message: action.payload.data,
+        },
+      };
+    case DELETELECTURE_SUCCESS:
+      return {
+        ...state,
+        delete: {
+          status: action.payload.status,
+          message: action.payload.data,
+        },
+      };
+    case DELETELECTURE_FAILURE:
+      return {
+        ...state,
+        delete: {
+          status: action.payload.status,
+          error: action.payload.data,
         },
       };
     default:

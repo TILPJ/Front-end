@@ -30,7 +30,10 @@ const LecturesList = ({ handleAddLectureMount, myLecturesList }) => {
     return (
       <Lecture
         key={`${lecture.id}${lecture.site_info.id}${lecture.course_info.id}`}
+        myLectureId={lecture.id}
+        siteId={lecture.site_info.id}
         site={lecture.site_info.name}
+        instructor={lecture.course_info.instructor}
         lecture={lecture.course_info.title}
       />
     );

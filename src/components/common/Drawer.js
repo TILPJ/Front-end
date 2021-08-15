@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
 import styled from 'styled-components';
 
 import AuthEntry from '../home/auth/AuthEntry';
@@ -28,7 +27,6 @@ const StyledDrawer = styled.div`
 
 const Drawer = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const { isDrawerOpen, authProcess, userToken } = useSelector(
     ({ drawer, process, user }) => ({
       isDrawerOpen: drawer.isDrawerOpen,
@@ -41,7 +39,6 @@ const Drawer = () => {
   useEffect(() => {
     if (userToken) {
       dispatch(closeDrawer());
-      history.push('/lectures');
     }
   }, [userToken]);
 

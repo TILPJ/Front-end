@@ -146,7 +146,7 @@ const AddLecture = ({ handleAddLectureMount }) => {
   const handleLectureRegister = () => {
     handleAddLectureMount(false);
     dispatch(registerMyNewLecture(selectedSite.id, selectedLecture.id));
-    history.push('/lectures');
+    history.go(0);
   };
 
   useEffect(() => {

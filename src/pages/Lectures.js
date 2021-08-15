@@ -20,19 +20,25 @@ const Lectures = () => {
     myLecturesList: lectures.myLectures.list,
   }));
   const [isAddLectureMonuted, setIsAddLectureMonuted] = useState(false);
+  // const prevMyLecturesListLengthRef = useRef();
+
   const handleAddLectureMount = (mount = true) => {
     setIsAddLectureMonuted(mount);
   };
 
+  // useEffect(() => {
+  //   prevMyLecturesListLengthRef.current = myLecturesList.length;
+  // });
+  // const prevMyLecturesListLength = prevMyLecturesListLengthRef.current;
   useEffect(() => {
     dispatch(getMyList());
   }, []);
 
   let content = '';
-  if (myLecturesList.length === 0) {
-    content = <Empty handleAddLectureMount={handleAddLectureMount} />;
-  } else if (isAddLectureMonuted) {
+  if (isAddLectureMonuted) {
     content = <AddLecture handleAddLectureMount={handleAddLectureMount} />;
+  } else if (myLecturesList.length === 0) {
+    content = <Empty handleAddLectureMount={handleAddLectureMount} />;
   } else {
     content = (
       <LecturesList
