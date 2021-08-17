@@ -8,6 +8,7 @@ import Sidebar from './components/common/Sidebar';
 import Footer from './components/common/Footer';
 import Home from './pages/Home';
 import Lectures from './pages/Lectures';
+import Tils from './pages/Tils';
 import { logout, maintainLogin } from './modules/auth/user';
 
 const App = () => {
@@ -41,6 +42,7 @@ const App = () => {
       )}
       <Switch>
         <Route path="/lectures" exact component={Lectures} />
+        <Route path="/tils" exact component={Tils} />
         <Route
           path="/"
           exact

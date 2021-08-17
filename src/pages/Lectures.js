@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import Empty from '../components/lectures/Empty';
+import EmptyList from '../components/common/EmptyList';
 import LecturesList from '../components/lectures/LecturesList';
 import AddLecture from '../components/lectures/AddLecture';
 import { getMyList } from '../modules/lectures/lectures';
@@ -19,26 +19,21 @@ const Lectures = () => {
   const { myLecturesList } = useSelector(({ lectures }) => ({
     myLecturesList: lectures.myLectures.list,
   }));
-  const [isAddLectureMonuted, setIsAddLectureMonuted] = useState(false);
-  // const prevMyLecturesListLengthRef = useRef();
+  const [isAddLectureMounted, setIsAddLectureMounted] = useState(false);
 
   const handleAddLectureMount = (mount = true) => {
-    setIsAddLectureMonuted(mount);
+    setIsAddLectureMounted(mount);
   };
 
-  // useEffect(() => {
-  //   prevMyLecturesListLengthRef.current = myLecturesList.length;
-  // });
-  // const prevMyLecturesListLength = prevMyLecturesListLengthRef.current;
   useEffect(() => {
     dispatch(getMyList());
   }, []);
 
   let content = '';
-  if (isAddLectureMonuted) {
+  if (isAddLectureMounted) {
     content = <AddLecture handleAddLectureMount={handleAddLectureMount} />;
-  } else if (myLecturesList.length === 0) {
-    content = <Empty handleAddLectureMount={handleAddLectureMount} />;
+  } else if (!myLecturesList || myLecturesList.length === 0) {
+    content = <EmptyList handleAddLectureMount={handleAddLectureMount} />;
   } else {
     content = (
       <LecturesList

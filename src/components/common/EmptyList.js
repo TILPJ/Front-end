@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { func } from 'prop-types';
 import AddIcon from '../../assets/lectures/add-icon.svg';
 
-const StyledEmpty = styled.div`
+const StyledEmptyList = styled.div`
   position: absolute;
   top: 290px;
   left: 50%;
@@ -24,9 +24,9 @@ const StyledEmpty = styled.div`
   }
 `;
 
-const Empty = ({ handleAddLectureMount }) => {
+const EmptyList = ({ handleAddLectureMount, handleLectureAdd }) => {
   return (
-    <StyledEmpty>
+    <StyledEmptyList>
       <div className="words">
         <p>학습중인 강의가 없습니다</p>
         <p>강의를 등록해주세요</p>
@@ -35,16 +35,21 @@ const Empty = ({ handleAddLectureMount }) => {
         <img
           src={AddIcon}
           alt="add-icon"
-          onClick={handleAddLectureMount}
-          onKeyDown={handleAddLectureMount}
+          onClick={handleAddLectureMount || handleLectureAdd}
+          onKeyDown={handleAddLectureMount || handleLectureAdd}
         />
       </div>
-    </StyledEmpty>
+    </StyledEmptyList>
   );
 };
 
-Empty.propTypes = {
-  handleAddLectureMount: func.isRequired,
+EmptyList.propTypes = {
+  handleAddLectureMount: func,
+  handleLectureAdd: func,
+};
+EmptyList.defaultProps = {
+  handleAddLectureMount: null,
+  handleLectureAdd: null,
 };
 
-export default Empty;
+export default EmptyList;

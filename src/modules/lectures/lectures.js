@@ -23,6 +23,7 @@ export const getMyList = () => {
     type: GETMYLIST,
   };
 };
+
 export const getSitesList = () => {
   return {
     type: GETSITESLIST,
@@ -192,7 +193,9 @@ const lectures = (state = initialState, action) => {
         },
       };
     default:
-      return state;
+      return {
+        ...state,
+      };
   }
 };
 export default lectures;

@@ -19,10 +19,39 @@ export default function createRequestSaga(
   // 기존에는 try-catch 구문이 있었음
   return function* (action) {
     const response = yield call(requestFn, action.payload);
+    console.log('action::::::::::', action);
+    console.log(response);
 
     sideEffectFn(type, response);
 
     if (response.data.status === 'success') {
+      yield put({
+        type: SUCCESS,
+        payload: response.data,
+      });
+    } else {
+      yield put({
+        type: FAILURE,
+        payload: response.data,
+      });
+    }
+  };
+}
+
+export function createMySitesListRequestSaga(type, requestFn) {
+  const SUCCESS = `${type}_SUCCESS`;
+  const FAILURE = `${type}_FAILURE`;
+  return function* (action) {
+    const response = yield call(requestFn, action.payload);
+    if (response.data.status === 'success') {
+      const sitesList = response.data.data.mycourses
+        .map(course => {
+          return course.site_info.name;
+        })
+        .filter((courseName, index, courses) => {
+          return index === courses.indexOf(courseName);
+        });
+      response.data.data.mycourses = sitesList;
       yield put({
         type: SUCCESS,
         payload: response.data,
