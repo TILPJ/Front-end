@@ -40,7 +40,13 @@ const TilsList = ({ handleTilDrawerOpen, isAddIconActivate, tilList }) => {
       currentDate = til.date;
     });
     content = dailyTilsList.map(dailyTils => {
-      return <DailyTils key={dailyTils.key} dailyTils={dailyTils} />;
+      return (
+        <DailyTils
+          key={dailyTils.key}
+          handleTilDrawerOpen={handleTilDrawerOpen}
+          dailyTils={dailyTils}
+        />
+      );
     });
   }
   return (

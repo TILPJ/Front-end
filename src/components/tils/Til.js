@@ -1,6 +1,10 @@
-import { shape, number, string, bool } from 'prop-types';
+/* eslint-disable no-nested-ternary */
+import { shape, number, string, bool, func } from 'prop-types';
 import styled from 'styled-components';
 import { ReactComponent as Inflearn } from '../../assets/tils/inflearn-logo.svg';
+import Coloso from '../../assets/tils/coloso-logo.png';
+import Nomad from '../../assets/tils/nomad-logo.png';
+import Udemy from '../../assets/tils/udemy-logo.png';
 
 const StyledTil = styled.div`
   display: flex;
@@ -49,17 +53,34 @@ const StyledTil = styled.div`
   }
 `;
 
-const Til = ({ til }) => {
+const Til = ({ til, handleTilDrawerOpen }) => {
+  const siteName = til.site_name;
   return (
     <StyledTil>
       <div className="logo">
-        <Inflearn />
+        {siteName === '인프런' ? (
+          <Inflearn />
+        ) : siteName === 'nomadcoders' ? (
+          <img style={{ width: '75px' }} src={Nomad} alt="nomadcoders" />
+        ) : siteName === 'coloso' ? (
+          <img style={{ width: '75px' }} src={Coloso} alt="coloso" />
+        ) : (
+          <img style={{ width: '75px' }} src={Udemy} alt="udemy" />
+        )}
       </div>
       <div className="title">{til.course_title}</div>
       <div className="section">{til.section_name}</div>
       <div className="date">{til.date}</div>
       <div className="memo">{til.memo}</div>
-      <div className="more">더보기</div>
+      <div
+        className="more"
+        onClick={handleTilDrawerOpen}
+        onKeyDown={handleTilDrawerOpen}
+        role="button"
+        tabIndex="0"
+      >
+        더보기
+      </div>
     </StyledTil>
   );
 };
@@ -74,6 +95,7 @@ Til.propTypes = {
     course_title: string.isRequired,
     section_name: string.isRequired,
   }).isRequired,
+  handleTilDrawerOpen: func.isRequired,
 };
 
 export default Til;

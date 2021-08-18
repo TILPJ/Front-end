@@ -12,10 +12,16 @@ const StyledDailyTils = styled.div`
   }
 `;
 
-const DailyTils = ({ dailyTils }) => {
+const DailyTils = ({ handleTilDrawerOpen, dailyTils }) => {
   let content = '';
   content = dailyTils.tils.map(til => {
-    return <Til key={`${til.date.replace(/-/g, '')}${til.id}`} til={til} />;
+    return (
+      <Til
+        key={`${til.date.replace(/-/g, '')}${til.id}`}
+        til={til}
+        handleTilDrawerOpen={handleTilDrawerOpen}
+      />
+    );
   });
   return (
     <StyledDailyTils>
