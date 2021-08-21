@@ -25,28 +25,23 @@ const Tils = () => {
   }));
   const [selectedFilter, setSelectedFilter] = useState('전체');
   const [isTilDrawerOpen, setIsTilDrawerOpen] = useState(false);
-  // eslint-disable-next-line no-unused-vars
-  const [newTil, setNewTil] = useState({
-    date: '',
-    mycourse: null,
-    section: false,
-    star: false,
-    memo: '',
-  });
+
+  const [tilDrawerContent, setTilDrawerContent] = useState('');
 
   const handleFilterSelect = siteName => {
     setSelectedFilter(siteName);
   };
-  const handleTilDrawerOpen = () => {
+  const handleTilDrawerOpen = content => {
+    setTilDrawerContent(content);
     setIsTilDrawerOpen(!isTilDrawerOpen);
   };
   const handleLectureAdd = () => {
     return history.push({ pathname: '/lectures' });
   };
+
   useEffect(() => {
     dispatch(getMySitesList());
   }, []);
-
   useEffect(() => {
     dispatch(getTilList(selectedFilter));
   }, [selectedFilter]);
@@ -70,6 +65,8 @@ const Tils = () => {
           tilList={tilList}
         />
         <TilDrawer
+          selectedFilter={selectedFilter}
+          tilDrawerContent={tilDrawerContent}
           isTilDrawerOpen={isTilDrawerOpen}
           handleTilDrawerOpen={handleTilDrawerOpen}
         />

@@ -19,11 +19,8 @@ export default function createRequestSaga(
   // 기존에는 try-catch 구문이 있었음
   return function* (action) {
     const response = yield call(requestFn, action.payload);
-    console.log('action::::::::::', action);
-    console.log(response);
-
     sideEffectFn(type, response);
-
+    console.log(response);
     if (response.data.status === 'success') {
       yield put({
         type: SUCCESS,

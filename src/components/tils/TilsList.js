@@ -57,8 +57,8 @@ const TilsList = ({ handleTilDrawerOpen, isAddIconActivate, tilList }) => {
           <img
             src={AddIcon}
             alt="add-icon"
-            onClick={handleTilDrawerOpen}
-            onKeyDown={handleTilDrawerOpen}
+            onClick={() => handleTilDrawerOpen('add')}
+            onKeyDown={() => handleTilDrawerOpen('add')}
           />
         </div>
       ) : (

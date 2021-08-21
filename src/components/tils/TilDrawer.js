@@ -1,5 +1,7 @@
-import { bool, func } from 'prop-types';
+import { bool, func, string } from 'prop-types';
 import styled from 'styled-components';
+import AddTil from './AddTil';
+import EditTil from './EditTil';
 
 const StyledTilDrawer = styled.div`
   position: fixed;
@@ -23,20 +25,37 @@ const Dimmed = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
 `;
 
-const TilDrawer = ({ isTilDrawerOpen, handleTilDrawerOpen }) => {
+const TilDrawer = ({
+  selectedFilter,
+  tilDrawerContent,
+  isTilDrawerOpen,
+  handleTilDrawerOpen,
+}) => {
   let content = '';
-  content = 'test';
+  if (tilDrawerContent === '') {
+    content = '';
+  } else if (tilDrawerContent === 'add') {
+    content = <AddTil selectedFilter={selectedFilter} />;
+  } else if (tilDrawerContent === 'edit') {
+    content = <EditTil />;
+  }
   return (
     <>
       <StyledTilDrawer isTilDrawerOpen={isTilDrawerOpen}>
         {content}
       </StyledTilDrawer>
-      {isTilDrawerOpen ? <Dimmed onClick={handleTilDrawerOpen} /> : ''}
+      {isTilDrawerOpen ? (
+        <Dimmed onClick={() => handleTilDrawerOpen('')} />
+      ) : (
+        ''
+      )}
     </>
   );
 };
 
 TilDrawer.propTypes = {
+  selectedFilter: string.isRequired,
+  tilDrawerContent: string.isRequired,
   isTilDrawerOpen: bool.isRequired,
   handleTilDrawerOpen: func.isRequired,
 };

@@ -74,8 +74,8 @@ const Til = ({ til, handleTilDrawerOpen }) => {
       <div className="memo">{til.memo}</div>
       <div
         className="more"
-        onClick={handleTilDrawerOpen}
-        onKeyDown={handleTilDrawerOpen}
+        onClick={() => handleTilDrawerOpen('edit')}
+        onKeyDown={() => handleTilDrawerOpen('edit')}
         role="button"
         tabIndex="0"
       >
