@@ -102,6 +102,10 @@ const Lecture = ({ myLectureId, siteId, site, instructor, lecture }) => {
   const handleLectureDelete = () => {
     dispatch(deleteLecture(myLectureId));
   };
+  const handleButtonHover = (e, target) => {
+    e.stopPropagation();
+    console.log(target);
+  };
 
   return (
     <StyledLecture
@@ -115,16 +119,32 @@ const Lecture = ({ myLectureId, siteId, site, instructor, lecture }) => {
           <div className="instructor"> {instructor}</div>
           <div className="buttons">
             <div className="button">
-              <div className="tooltip">TIL 추가하기</div>
-              <AddTil />
+              <div className="tooltip" style={{ display: 'none' }}>
+                TIL 추가하기
+              </div>
+              <AddTil
+                onMouseEnter={e => handleButtonHover(e, 'add')}
+                onMouseLeave={e => handleButtonHover(e, 'add')}
+              />
             </div>
             <div className="button">
-              <div className="tooltip">TIL 목록으로 이동</div>
-              <MoveToTil />
+              <div className="tooltip" style={{ display: 'none' }}>
+                TIL 목록으로 이동
+              </div>
+              <MoveToTil
+                onMouseEnter={e => handleButtonHover(e, 'link')}
+                onMouseLeave={e => handleButtonHover(e, 'link')}
+              />
             </div>
             <div className="button">
-              <div className="tooltip">강의 삭제하기</div>
-              <DeleteLecture onClick={handleLectureDelete} />
+              <div className="tooltip" style={{ display: 'none' }}>
+                강의 삭제하기
+              </div>
+              <DeleteLecture
+                onClick={handleLectureDelete}
+                onMouseEnter={e => handleButtonHover(e, 'delete')}
+                onMouseLeave={e => handleButtonHover(e, 'delete')}
+              />
             </div>
           </div>
         </div>

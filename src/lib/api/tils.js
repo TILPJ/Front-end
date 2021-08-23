@@ -27,10 +27,19 @@ export const getMySitesList = () => {
     },
   });
 };
-export const getCoursesList = ({ siteName }) => {
+// export const getCoursesList = ({ siteName }) => {
+//   return client({
+//     method: 'get',
+//     url: `/v1.0/mycourses/courses/?site=${siteName}`,
+//   });
+// };
+export const getCoursesList = () => {
   return client({
     method: 'get',
-    url: `/v1.0/mycourses/courses/?site=${siteName}`,
+    url: `/v1.0/mycourses`,
+    headers: {
+      Authorization: `Token ${localStorage.getItem('userToken')}`,
+    },
   });
 };
 export const getChaptersList = ({ courseId }) => {
@@ -40,7 +49,6 @@ export const getChaptersList = ({ courseId }) => {
   });
 };
 export const addTil = newTil => {
-  console.log(newTil);
   return client({
     method: 'post',
     url: '/v1.0/tils/',
@@ -49,6 +57,15 @@ export const addTil = newTil => {
     },
     data: {
       ...newTil,
+    },
+  });
+};
+export const getTilDetail = ({ tilId }) => {
+  return client({
+    method: 'get',
+    url: `/v1.0/tils/${tilId}`,
+    headers: {
+      Authorization: `Token ${localStorage.getItem('userToken')}`,
     },
   });
 };

@@ -1,4 +1,4 @@
-import { bool, func, string } from 'prop-types';
+import { number, bool, func, string } from 'prop-types';
 import styled from 'styled-components';
 import AddTil from './AddTil';
 import EditTil from './EditTil';
@@ -26,6 +26,7 @@ const Dimmed = styled.div`
 `;
 
 const TilDrawer = ({
+  openTilId,
   selectedFilter,
   tilDrawerContent,
   isTilDrawerOpen,
@@ -37,7 +38,7 @@ const TilDrawer = ({
   } else if (tilDrawerContent === 'add') {
     content = <AddTil selectedFilter={selectedFilter} />;
   } else if (tilDrawerContent === 'edit') {
-    content = <EditTil />;
+    content = <EditTil openTilId={openTilId} />;
   }
   return (
     <>
@@ -54,10 +55,14 @@ const TilDrawer = ({
 };
 
 TilDrawer.propTypes = {
+  openTilId: number,
   selectedFilter: string.isRequired,
   tilDrawerContent: string.isRequired,
   isTilDrawerOpen: bool.isRequired,
   handleTilDrawerOpen: func.isRequired,
+};
+TilDrawer.defaultProps = {
+  openTilId: 0,
 };
 
 export default TilDrawer;

@@ -31,14 +31,7 @@ const AddTil = ({ selectedFilter }) => {
   });
   const [date, setDate] = useState('');
   const [memo, setMemo] = useState('');
-  // eslint-disable-next-line no-unused-vars
-  // const [newTil, setNewTil] = useState({
-  //   date: '',
-  //   mycourse: null,
-  //   section: false,
-  //   star: false,
-  //   memo: '',
-  // });
+
   const handleDateInput = e => {
     setDate(e.target.value);
   };
@@ -85,10 +78,12 @@ const AddTil = ({ selectedFilter }) => {
   };
 
   useEffect(() => {
-    dispatch(getCoursesList(selectedFilter));
+    dispatch(getCoursesList());
   }, [selectedFilter]);
+
   useEffect(() => {
     if (selectedCourse.id) {
+      console.log(selectedCourse.id);
       dispatch(getChaptersList(selectedCourse.id));
     }
   }, [selectedCourse.id]);
@@ -96,15 +91,25 @@ const AddTil = ({ selectedFilter }) => {
   let courseOptions = '';
   let chapterOptions = '';
   if (coursesList.length !== 0) {
-    courseOptions = coursesList.map(course => (
-      <li
-        key={`${course.id}${course.instructor}`}
-        onClick={() => handleOptionSelect('course', course.id, course.title)}
-        onKeyDown={() => handleOptionSelect('course', course.id, course.title)}
-      >
-        {course.title}
-      </li>
-    ));
+    courseOptions = coursesList
+      .filter(course => {
+        return course.site_info.name === selectedFilter;
+      })
+      .map(course => {
+        return (
+          <li
+            key={`${course.id}${course.course_info.instructor}`}
+            onClick={() =>
+              handleOptionSelect('course', course.id, course.course_info.title)
+            }
+            onKeyDown={() =>
+              handleOptionSelect('course', course.id, course.course_info.title)
+            }
+          >
+            {course.course_info.title}
+          </li>
+        );
+      });
   }
   if (chaptersList.length !== 0) {
     chapterOptions = chaptersList.map(chapter => (
@@ -129,7 +134,12 @@ const AddTil = ({ selectedFilter }) => {
       <AddTilContent>
         <div className="date content">
           <div className="label">날짜 선택</div>
-          <input type="text" onInput={handleDateInput} value={date} />
+          <input
+            type="text"
+            placeholder="yyyy-mm-dd"
+            onInput={handleDateInput}
+            value={date}
+          />
         </div>
         <div className="lecture content">
           <div className="label">강의명 선택</div>

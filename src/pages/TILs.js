@@ -25,14 +25,17 @@ const Tils = () => {
   }));
   const [selectedFilter, setSelectedFilter] = useState('전체');
   const [isTilDrawerOpen, setIsTilDrawerOpen] = useState(false);
-
+  const [openTilId, setOpenTilId] = useState(0);
   const [tilDrawerContent, setTilDrawerContent] = useState('');
 
   const handleFilterSelect = siteName => {
     setSelectedFilter(siteName);
   };
-  const handleTilDrawerOpen = content => {
-    setTilDrawerContent(content);
+  const handleTilDrawerOpen = (drawerContent, tilId = 0) => {
+    setTilDrawerContent(drawerContent);
+    if (tilId !== 0) {
+      setOpenTilId(tilId);
+    }
     setIsTilDrawerOpen(!isTilDrawerOpen);
   };
   const handleLectureAdd = () => {
@@ -65,6 +68,7 @@ const Tils = () => {
           tilList={tilList}
         />
         <TilDrawer
+          openTilId={openTilId}
           selectedFilter={selectedFilter}
           tilDrawerContent={tilDrawerContent}
           isTilDrawerOpen={isTilDrawerOpen}

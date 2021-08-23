@@ -15,6 +15,8 @@ const [GETCHAPTERSLIST, GETCHAPTERSLIST_SUCCESS, GETCHAPTERSLIST_FAILURE] =
   createRequestActionTypes('tils/GETCHAPTERSLIST');
 const [ADDTIL, ADDTIL_SUCCESS, ADDTIL_FAILURE] =
   createRequestActionTypes('tils/ADDTIL');
+const [GETTILDETAIL, GETTILDETAIL_SUCCESS, GETTILDETAIL_FAILURE] =
+  createRequestActionTypes('tils/GETTILDETAIL');
 
 export const getTilList = siteName => {
   return {
@@ -29,12 +31,9 @@ export const getMySitesList = () => {
     type: GETMYSITESLIST,
   };
 };
-export const getCoursesList = siteName => {
+export const getCoursesList = () => {
   return {
     type: GETCOURSESLIST,
-    payload: {
-      siteName,
-    },
   };
 };
 export const getChaptersList = courseId => {
@@ -53,6 +52,14 @@ export const addTil = newTil => {
     },
   };
 };
+export const getTilDetail = tilId => {
+  return {
+    type: GETTILDETAIL,
+    payload: {
+      tilId,
+    },
+  };
+};
 
 const getTilListSaga = createRequestSaga(GETTILLIST, tilsAPI.getTilList);
 const getMySitesListSaga = createMySitesListRequestSaga(
@@ -68,6 +75,7 @@ const getChaptersListSaga = createRequestSaga(
   tilsAPI.getChaptersList
 );
 const addTilSaga = createRequestSaga(ADDTIL, tilsAPI.addTil);
+const getTilDetailSaga = createRequestSaga(GETTILDETAIL, tilsAPI.getTilDetail);
 
 export function* tilsSagas() {
   yield takeLatest(GETTILLIST, getTilListSaga);
@@ -75,6 +83,7 @@ export function* tilsSagas() {
   yield takeLatest(GETCOURSESLIST, getCoursesListSaga);
   yield takeLatest(GETCHAPTERSLIST, getChaptersListSaga);
   yield takeLatest(ADDTIL, addTilSaga);
+  yield takeLatest(GETTILDETAIL, getTilDetailSaga);
 }
 
 const initialState = {
@@ -101,6 +110,11 @@ const initialState = {
   addTil: {
     status: null,
     message: null,
+  },
+  tilDetail: {
+    status: null,
+    detail: {},
+    error: null,
   },
 };
 
@@ -142,7 +156,7 @@ const tils = (state = initialState, action) => {
       return {
         ...state,
         courses: {
-          list: action.payload.data.courses,
+          list: action.payload.data.mycourses,
         },
       };
     case GETCOURSESLIST_FAILURE:
@@ -182,6 +196,22 @@ const tils = (state = initialState, action) => {
         addTil: {
           status: action.payload.status,
           message: action.payload,
+        },
+      };
+    case GETTILDETAIL_SUCCESS:
+      return {
+        ...state,
+        tilDetail: {
+          status: action.payload.status,
+          detail: action.payload.data,
+        },
+      };
+    case GETTILDETAIL_FAILURE:
+      return {
+        ...state,
+        tilDetail: {
+          status: action.payload.status,
+          detail: action.payload.data,
         },
       };
     default:
