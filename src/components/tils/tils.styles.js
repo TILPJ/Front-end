@@ -113,13 +113,26 @@ export const StyledContent = styled.div`
     }
   }
   & > .buttonWrapper {
+    display: flex;
+    justify-content: ${({ isButtonsCenter }) =>
+      isButtonsCenter ? 'center' : 'space-between'};
+    width: 100%;
     margin-top: 23px;
-    & > button {
-      width: 174px;
+    & > .save {
+      width: 170px;
       height: 40px;
       border: 0;
       border-radius: 5px;
       background: #f1928b;
+      color: #fff;
+      cursor: pointer;
+    }
+    & > .cancel {
+      width: 170px;
+      height: 40px;
+      border: 0;
+      border-radius: 5px;
+      background: #dfdfdf;
       color: #fff;
       cursor: pointer;
     }

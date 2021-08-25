@@ -38,7 +38,12 @@ const TilDrawer = ({
   } else if (tilDrawerContent === 'add') {
     content = <AddTil selectedFilter={selectedFilter} />;
   } else if (tilDrawerContent === 'edit') {
-    content = <EditTil openTilId={openTilId} />;
+    content = (
+      <EditTil
+        handleTilDrawerOpen={handleTilDrawerOpen}
+        openTilId={openTilId}
+      />
+    );
   }
   return (
     <>

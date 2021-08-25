@@ -17,6 +17,10 @@ const [ADDTIL, ADDTIL_SUCCESS, ADDTIL_FAILURE] =
   createRequestActionTypes('tils/ADDTIL');
 const [GETTILDETAIL, GETTILDETAIL_SUCCESS, GETTILDETAIL_FAILURE] =
   createRequestActionTypes('tils/GETTILDETAIL');
+const [EDITTIL, EDITTIL_SUCCESS, EDITTIL_FAILURE] =
+  createRequestActionTypes('tils/EDITTIL');
+const [DELETETIL, DELETETIL_SUCCESS, DELETETIL_FAILURE] =
+  createRequestActionTypes('tils/DELETETIL');
 
 export const getTilList = siteName => {
   return {
@@ -60,6 +64,23 @@ export const getTilDetail = tilId => {
     },
   };
 };
+export const editTil = (tilId, editedTil) => {
+  return {
+    type: EDITTIL,
+    payload: {
+      tilId,
+      editedTil,
+    },
+  };
+};
+export const deleteTil = tilId => {
+  return {
+    type: DELETETIL,
+    payload: {
+      tilId,
+    },
+  };
+};
 
 const getTilListSaga = createRequestSaga(GETTILLIST, tilsAPI.getTilList);
 const getMySitesListSaga = createMySitesListRequestSaga(
@@ -76,6 +97,8 @@ const getChaptersListSaga = createRequestSaga(
 );
 const addTilSaga = createRequestSaga(ADDTIL, tilsAPI.addTil);
 const getTilDetailSaga = createRequestSaga(GETTILDETAIL, tilsAPI.getTilDetail);
+const editTilSaga = createRequestSaga(EDITTIL, tilsAPI.editTil);
+const deleteTilSaga = createRequestSaga(DELETETIL, tilsAPI.deleteTil);
 
 export function* tilsSagas() {
   yield takeLatest(GETTILLIST, getTilListSaga);
@@ -84,6 +107,8 @@ export function* tilsSagas() {
   yield takeLatest(GETCHAPTERSLIST, getChaptersListSaga);
   yield takeLatest(ADDTIL, addTilSaga);
   yield takeLatest(GETTILDETAIL, getTilDetailSaga);
+  yield takeLatest(EDITTIL, editTilSaga);
+  yield takeLatest(DELETETIL, deleteTilSaga);
 }
 
 const initialState = {
@@ -115,6 +140,14 @@ const initialState = {
     status: null,
     detail: {},
     error: null,
+  },
+  editTil: {
+    status: null,
+    message: null,
+  },
+  deleteTil: {
+    status: null,
+    message: null,
   },
 };
 
@@ -212,6 +245,38 @@ const tils = (state = initialState, action) => {
         tilDetail: {
           status: action.payload.status,
           detail: action.payload.data,
+        },
+      };
+    case EDITTIL_SUCCESS:
+      return {
+        ...state,
+        editTil: {
+          status: action.payload.status,
+          message: action.payload.data.detail,
+        },
+      };
+    case EDITTIL_FAILURE:
+      return {
+        ...state,
+        editTil: {
+          status: action.payload.status,
+          message: action.payload,
+        },
+      };
+    case DELETETIL_SUCCESS:
+      return {
+        ...state,
+        deleteTil: {
+          status: action.payload.status,
+          message: action.payload.data.detail,
+        },
+      };
+    case DELETETIL_FAILURE:
+      return {
+        ...state,
+        deleteTil: {
+          status: action.payload.status,
+          message: action.payload,
         },
       };
     default:

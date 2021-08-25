@@ -69,3 +69,24 @@ export const getTilDetail = ({ tilId }) => {
     },
   });
 };
+export const editTil = ({ tilId, editedTil }) => {
+  return client({
+    method: 'put',
+    url: `/v1.0/tils/${tilId}`,
+    headers: {
+      Authorization: `Token ${localStorage.getItem('userToken')}`,
+    },
+    data: {
+      ...editedTil,
+    },
+  });
+};
+export const deleteTil = ({ tilId }) => {
+  return client({
+    method: 'delete',
+    url: `/v1.0/tils/${tilId}`,
+    headers: {
+      Authorization: `Token ${localStorage.getItem('userToken')}`,
+    },
+  });
+};

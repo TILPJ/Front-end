@@ -131,7 +131,7 @@ const AddTil = ({ selectedFilter }) => {
           <span className="stress">TILUP을 등록해주세요</span>
         </p>
       </AddTilTitle>
-      <AddTilContent>
+      <AddTilContent isButtonsCenter>
         <div className="date content">
           <div className="label">날짜 선택</div>
           <input
@@ -188,7 +188,7 @@ const AddTil = ({ selectedFilter }) => {
           />
         </div>
         <div className="buttonWrapper">
-          <button type="button" onClick={handleTilAdd}>
+          <button type="button" className="save" onClick={handleTilAdd}>
             등록하기
           </button>
         </div>
