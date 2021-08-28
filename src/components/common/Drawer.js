@@ -42,17 +42,16 @@ const Drawer = () => {
     }
   }, [userToken]);
 
-  const handleEmailCheck = e => {
-    e.preventDefault();
+  const handleEmailCheck = () => {
     dispatch(checkEmail(email));
   };
 
+  const init = () => {
+    dispatch(initUserEmail());
+    dispatch(switchToAuthEntry());
+  };
   useEffect(() => {
-    if (!isDrawerOpen) {
-      // [이메일 찾기] 이메일 초기화. 적절한 위치는 아닌 것 같음
-      dispatch(initUserEmail());
-      dispatch(switchToAuthEntry());
-    }
+    init();
   }, [isDrawerOpen]);
 
   let drawerContent;

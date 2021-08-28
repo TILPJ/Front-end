@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import GlobalStyles from './globalStyles';
@@ -9,6 +10,7 @@ import Footer from './components/common/Footer';
 import Home from './pages/Home';
 import Lectures from './pages/Lectures';
 import Tils from './pages/Tils';
+// eslint-disable-next-line no-unused-vars
 import { logout, maintainLogin } from './modules/auth/user';
 
 const App = () => {
@@ -22,10 +24,11 @@ const App = () => {
     localStorage.removeItem('userToken');
   };
   const savedToken = localStorage.getItem('userToken');
-  if (savedToken && !userToken) {
-    dispatch(maintainLogin(savedToken));
-  }
-
+  useEffect(() => {
+    if (savedToken) {
+      dispatch(maintainLogin(savedToken));
+    }
+  }, []);
   return (
     <>
       <GlobalStyles />
@@ -46,7 +49,8 @@ const App = () => {
         <Route
           path="/"
           exact
-          render={() => <Home userToken={userToken} savedToken={savedToken} />}
+          component={Home}
+          // render={() => <Home userToken={userToken} savedToken={savedToken} />}
         />
       </Switch>
       <Footer />

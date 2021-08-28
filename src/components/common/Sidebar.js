@@ -1,6 +1,5 @@
 import { func, string } from 'prop-types';
-import { Redirect } from 'react-router';
-
+import { Redirect, useHistory } from 'react-router';
 import styled from 'styled-components';
 import Logo from '../../assets/common/sidebar_logo.svg';
 import Logout from '../../assets/common/sidebar_logout.svg';
@@ -38,9 +37,17 @@ const StyledSidebarWrapper = styled.div`
 `;
 
 const Sidebar = ({ userToken, savedToken, handleLogout }) => {
+  const history = useHistory();
   if (!userToken && !savedToken) {
     return <Redirect to="/" />;
   }
+  const handleMenuLink = menu => {
+    if (menu === '내강의목록') {
+      history.push('/lectures');
+    } else if (menu === 'TodayILearned') {
+      history.push('/tils');
+    }
+  };
   return (
     <StyledSidebarWrapper>
       <div className="sidebar">
@@ -48,8 +55,8 @@ const Sidebar = ({ userToken, savedToken, handleLogout }) => {
           <img src={Logo} alt="sidebar-logo" />
         </div>
         <div className="menus">
-          <MenuTab menu="내강의목록" />
-          <MenuTab menu="TodayILearned" />
+          <MenuTab menu="내강의목록" handleMenuLink={handleMenuLink} />
+          <MenuTab menu="TodayILearned" handleMenuLink={handleMenuLink} />
         </div>
         <div className="logout-wrapper">
           <img

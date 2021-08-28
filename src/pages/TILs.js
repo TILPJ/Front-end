@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import styled from 'styled-components';
 import { getTilList, getMySitesList } from '../modules/tils/tils';
 import EmptyList from '../components/common/EmptyList';
@@ -18,15 +18,26 @@ const StyledTils = styled.div`
 
 const Tils = () => {
   const history = useHistory();
+  const location = useLocation();
   const dispatch = useDispatch();
-  const { tilList, mySitesList } = useSelector(({ tils }) => ({
+  const { tilList, mySitesList, userToken } = useSelector(({ tils, user }) => ({
     tilList: tils.tils.list,
     mySitesList: tils.mySites.list,
+    userToken: user.token,
   }));
   const [selectedFilter, setSelectedFilter] = useState('전체');
   const [isTilDrawerOpen, setIsTilDrawerOpen] = useState(false);
   const [openTilId, setOpenTilId] = useState(0);
   const [tilDrawerContent, setTilDrawerContent] = useState('');
+
+  useEffect(() => {
+    if (!userToken) {
+      history.push('/');
+    }
+    if (location.state) {
+      setSelectedFilter(location.state.filter);
+    }
+  }, []);
 
   const handleFilterSelect = siteName => {
     setSelectedFilter(siteName);
@@ -39,11 +50,12 @@ const Tils = () => {
     setIsTilDrawerOpen(!isTilDrawerOpen);
   };
   const handleLectureAdd = () => {
-    return history.push({ pathname: '/lectures' });
+    history.push({ pathname: '/lectures' });
   };
 
   useEffect(() => {
     dispatch(getMySitesList());
+    window.scrollTo(0, 0);
   }, []);
   useEffect(() => {
     dispatch(getTilList(selectedFilter));

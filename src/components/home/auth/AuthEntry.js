@@ -109,9 +109,11 @@ const AuthEntry = ({ email, setEmail, handleEmailCheck }) => {
     }
   });
   useEffect(() => {
-    if (!isDrawerOpen) {
+    if (isDrawerOpen) {
       setEmail('');
       dispatch(initEmailExistence());
+    } else {
+      setIsFormOpen(false);
     }
   }, [isDrawerOpen]);
   useEffect(() => {
@@ -173,7 +175,7 @@ const AuthEntry = ({ email, setEmail, handleEmailCheck }) => {
           이메일로 시작하기
           <img src={ArrowDown} className="toggleImage" alt="arrow down" />
         </button>
-        <form className="emailForm" onSubmit={handleEmailCheck}>
+        <div className="emailForm">
           <input
             placeholder="이메일"
             value={email}
@@ -185,7 +187,7 @@ const AuthEntry = ({ email, setEmail, handleEmailCheck }) => {
           ) : null}
 
           <div className="requiredNotice">필수 입력창입니다</div>
-          <AuthEntryButton disabled={disabled} type="submit">
+          <AuthEntryButton disabled={disabled} onClick={handleEmailCheck}>
             다음
           </AuthEntryButton>
           {!isEmailFormat ? (
@@ -197,7 +199,7 @@ const AuthEntry = ({ email, setEmail, handleEmailCheck }) => {
               이메일 주소가 기억나지 않아요
             </button>
           ) : null}
-        </form>
+        </div>
       </AuthEntryContent>
     </>
   );

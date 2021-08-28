@@ -1,13 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-nested-ternary */
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { string, number } from 'prop-types';
-import { ReactComponent as AddTil } from '../../assets/lectures/add-til.svg';
-import { ReactComponent as MoveToTil } from '../../assets/lectures/move-to-til.svg';
-import { ReactComponent as DeleteLecture } from '../../assets/lectures/delete-lecture.svg';
-import tooltipPath from '../../assets/lectures/tooltip.svg';
-import { deleteLecture } from '../../modules/lectures/lectures';
+import { string, number, func } from 'prop-types';
+import DetailButton from './DetailButton';
 
 const StyledLecture = styled.div`
   position: relative;
@@ -63,48 +59,22 @@ const StyledLecture = styled.div`
     & > .instructor {
       max-width: 160px;
     }
-    & > .buttons {
-      & > .button {
-        position: relative;
-        width: 32px;
-        height: 32px;
-        & > .tooltip {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          position: absolute;
-          top: 4px;
-          left: -100px;
-          width: 90px;
-          height: 24px;
-          background-image: url(${tooltipPath});
-          font-weight: 500;
-          font-size: 9px;
-        }
-      }
-      & > .button:not(:last-child) {
-        margin-bottom: 6px;
-        width: 32px;
-        height: 32px;
-      }
-    }
   }
 `;
 
-const Lecture = ({ myLectureId, siteId, site, instructor, lecture }) => {
-  const dispatch = useDispatch();
-
+const Lecture = ({
+  myLectureId,
+  siteId,
+  site,
+  instructor,
+  lecture,
+  handleLectureDelete,
+  handleGoToTils,
+}) => {
   const [isHover, setIsHover] = useState(false);
 
   const handleMouseHover = value => {
     setIsHover(value);
-  };
-  const handleLectureDelete = () => {
-    dispatch(deleteLecture(myLectureId));
-  };
-  const handleButtonHover = (e, target) => {
-    e.stopPropagation();
-    console.log(target);
   };
 
   return (
@@ -116,36 +86,20 @@ const Lecture = ({ myLectureId, siteId, site, instructor, lecture }) => {
     >
       {isHover && (
         <div className="detail">
-          <div className="instructor"> {instructor}</div>
+          <div className="instructor">{instructor}</div>
+
           <div className="buttons">
-            <div className="button">
-              <div className="tooltip" style={{ display: 'none' }}>
-                TIL 추가하기
-              </div>
-              <AddTil
-                onMouseEnter={e => handleButtonHover(e, 'add')}
-                onMouseLeave={e => handleButtonHover(e, 'add')}
-              />
-            </div>
-            <div className="button">
-              <div className="tooltip" style={{ display: 'none' }}>
-                TIL 목록으로 이동
-              </div>
-              <MoveToTil
-                onMouseEnter={e => handleButtonHover(e, 'link')}
-                onMouseLeave={e => handleButtonHover(e, 'link')}
-              />
-            </div>
-            <div className="button">
-              <div className="tooltip" style={{ display: 'none' }}>
-                강의 삭제하기
-              </div>
-              <DeleteLecture
-                onClick={handleLectureDelete}
-                onMouseEnter={e => handleButtonHover(e, 'delete')}
-                onMouseLeave={e => handleButtonHover(e, 'delete')}
-              />
-            </div>
+            <DetailButton
+              site={site}
+              button="add"
+              handleGoToTils={handleGoToTils}
+            />
+            {/* <DetailButton button="link" /> */}
+            <DetailButton
+              button="delete"
+              myLectureId={myLectureId}
+              handleLectureDelete={handleLectureDelete}
+            />
           </div>
         </div>
       )}
@@ -163,5 +117,7 @@ Lecture.propTypes = {
   site: string.isRequired,
   instructor: string.isRequired,
   lecture: string.isRequired,
+  handleLectureDelete: func.isRequired,
+  handleGoToTils: func.isRequired,
 };
 export default Lecture;

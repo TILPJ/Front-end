@@ -1,6 +1,9 @@
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import Lecture from './Lecture';
 import AddIcon from '../../assets/lectures/add-icon.svg';
+import { deleteLecture } from '../../modules/lectures/lectures';
 
 const StyledLecturesList = styled.div`
   position: relative;
@@ -25,6 +28,15 @@ const StyledLecturesList = styled.div`
 
 // eslint-disable-next-line react/prop-types
 const LecturesList = ({ handleAddLectureMount, myLecturesList }) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const handleLectureDelete = myLectureId => {
+    dispatch(deleteLecture(myLectureId));
+  };
+  const handleGoToTils = site => {
+    history.push({ pathname: '/tils', state: { filter: site } });
+  };
+
   // eslint-disable-next-line react/prop-types
   const lectures = myLecturesList.map(lecture => {
     return (
@@ -35,6 +47,8 @@ const LecturesList = ({ handleAddLectureMount, myLecturesList }) => {
         site={lecture.site_info.name}
         instructor={lecture.course_info.instructor}
         lecture={lecture.course_info.title}
+        handleLectureDelete={handleLectureDelete}
+        handleGoToTils={handleGoToTils}
       />
     );
   });

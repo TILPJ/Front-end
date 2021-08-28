@@ -58,7 +58,6 @@ export const maintainLogin = userToken => ({
     userToken,
   },
 });
-
 const registerSaga = createRequestSaga(
   REGISTER,
   authAPI.register,
