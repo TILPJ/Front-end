@@ -4,19 +4,18 @@ const StyledFooter = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   width: 100vw;
+  height: 100px;
   font-family: 'Apple SD Gothic Neo';
   font-weight: 800;
   color: #999999;
   & > .teamName {
-    margin-bottom: 18px;
     font-size: 20px;
   }
   & > .detail {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 25px;
     width: 350px;
     font-size: 16px;
   }
