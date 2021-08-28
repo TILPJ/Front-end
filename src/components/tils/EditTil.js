@@ -53,8 +53,8 @@ const EditTil = ({ handleTilDrawerOpen, openTilId }) => {
   }, []);
   useEffect(() => {
     setDate(savedTil.date);
-    setCourse(savedTil.mycourse);
-    setChapter(savedTil.section);
+    setCourse(savedTil.course_title);
+    setChapter(savedTil.section_name);
     setMemo(savedTil.memo);
   }, [savedTil.date]);
 
