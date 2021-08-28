@@ -83,7 +83,6 @@ const AddTil = ({ selectedFilter }) => {
 
   useEffect(() => {
     if (selectedCourse.id) {
-      console.log(selectedCourse.id);
       dispatch(getChaptersList(selectedCourse.id));
     }
   }, [selectedCourse.id]);

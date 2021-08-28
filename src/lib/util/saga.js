@@ -20,7 +20,6 @@ export default function createRequestSaga(
   return function* (action) {
     const response = yield call(requestFn, action.payload);
     sideEffectFn(type, response);
-    console.log(response);
     if (response.data.status === 'success') {
       yield put({
         type: SUCCESS,
