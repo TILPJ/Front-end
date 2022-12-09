@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="285" height="174" viewBox="0 0 285 174">
+  <g id="그룹_3784" data-name="그룹 3784" transform="translate(-0.5 -871)">
+    <line id="선_30" data-name="선 30" x2="285" transform="translate(0.5 1038.5)" fill="none" stroke="#343434" stroke-width="3"/>
+    <rect id="사각형_2292" data-name="사각형 2292" width="77" height="140" transform="translate(104 899)" fill="#754646"/>
+    <g id="사각형_2293" data-name="사각형 2293" transform="translate(105 873)" fill="#fff" stroke="#000" stroke-width="2">
+      <rect width="75" height="19" stroke="none"/>
+      <rect x="-1" y="-1" width="77" height="21" fill="none"/>
+    </g>
+    <text id="EXIT" transform="translate(124 889)" font-size="18" font-family="AppleSDGothicNeoB00"><tspan x="0" y="0">EXIT</tspan></text>
+  </g>
+</svg>
