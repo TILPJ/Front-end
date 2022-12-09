@@ -9,7 +9,7 @@ import Sidebar from './components/common/Sidebar';
 import Footer from './components/common/Footer';
 import Home from './pages/Home';
 import Lectures from './pages/Lectures';
-import Tils from './pages/Tils';
+import Tils from './pages/TILs';
 // eslint-disable-next-line no-unused-vars
 import { logout, maintainLogin } from './modules/auth/user';
 
